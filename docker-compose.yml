@@ -51,7 +51,7 @@ services:
     depends_on:
       otelcol:
         condition: service_started
-      kafka:
+      otel-kafka:
         condition: service_healthy
     logging: *logging
 
@@ -152,7 +152,7 @@ services:
         condition: service_started
       otelcol:
         condition: service_started
-      kafka:
+      otel-kafka:
         condition: service_healthy
     logging: *logging
 
@@ -229,10 +229,10 @@ services:
       - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
       - OTEL_EXPORTER_OTLP_TRACES_PROTOCOL=grpc
       - OTEL_SERVICE_NAME=featureflagservice
-      - DATABASE_URL=ecto://ffs:ffs@ffs_postgres:5432/ffs
+      - DATABASE_URL=ecto://ffs:ffs@ffs-postgres:5432/ffs
       - FEATURE_FLAG_SERVICE_PATH_ROOT="/feature"
     depends_on:
-      ffs_postgres:
+      ffs-postgres:
         condition: service_healthy
     logging: *logging
 
@@ -259,7 +259,7 @@ services:
     depends_on:
       otelcol:
         condition: service_started
-      kafka:
+      otel-kafka:
         condition: service_healthy
     logging: *logging
 
@@ -505,7 +505,7 @@ services:
   # Dependent Services
   # ******************
   # Postgres used by Feature Flag service
-  ffs_postgres:
+  ffs-postgres:
     image: postgres:14
     container_name: postgres
     user: postgres
@@ -524,9 +524,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - "5432"
 
   # Kafka used by Checkout, Accounting, and Fraud Detection services
-  kafka:
+  otel-kafka:
     image: ${IMAGE_NAME}:${IMAGE_VERSION}-kafka
     container_name: kafka
     build:
@@ -547,11 +549,15 @@ services:
       - OTEL_SERVICE_NAME=kafka
     logging: *logging
     healthcheck:
-      test: nc -z kafka 9092
+      test: nc -z otel-kafka 9092
       start_period: 10s
       interval: 5s
       timeout: 10s
       retries: 10
+    ports:
+      - "53"
+      - "9464"
+      - "9092"
 
   # Redis used by Cart service
   redis-cart:

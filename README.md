@@ -37,12 +37,6 @@ keeping it up to date for you.
 | [Coralogix](https://coralogix.com/blog/configure-otel-demo-send-telemetry-data-coralogix)                         | [Honeycomb.io](https://github.com/honeycombio/opentelemetry-demo)                               | [TelemetryHub](https://github.com/TelemetryHub/opentelemetry-demo/tree/telemetryhub-backend) |
 | [Datadog](https://github.com/DataDog/opentelemetry-demo)                                                          | [Lightstep](https://github.com/lightstep/opentelemetry-demo)                                    | [Uptrace](https://github.com/uptrace/uptrace/tree/master/example/opentelemetry-demo)         |
 
-## Contributing
-
-To get involved with the project see our [CONTRIBUTING](CONTRIBUTING.md)
-documentation. Our [SIG Calls](CONTRIBUTING.md#join-a-sig-call) are Mondays at
-8:15 AM PST and anyone is welcome.
-
 ## Project leadership
 
 [Maintainers](https://github.com/open-telemetry/community/blob/main/community-membership.md#maintainer)
